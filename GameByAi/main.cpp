@@ -1,4 +1,5 @@
 ﻿#include <SDL.h>
+#include <Windows.h>
 #include <vector>
 
 // Игрок
@@ -27,7 +28,7 @@ struct Zombie {
 SDL_Window* window;
 SDL_Renderer* renderer;
 Player player;
-NPC npc;
+//NPC npc;
 std::vector<Zombie> zombies;
 
 // Инициализация
@@ -51,12 +52,12 @@ bool init() {
 
     // Инициализация игрока, НПС и зомби
     player.rect = { 100, 100, 32, 32 };
-    player.hp = 100;
+    player.hp = 100000;
     player.isAlive = true;
 
-    npc.rect = { 200, 200, 32, 32 };
-    npc.hp = 100;
-    npc.isAlive = true;
+    //npc.rect = { 200, 200, 32, 32 };
+    //npc.hp = 100000;
+    //npc.isAlive = true;
 
     Zombie zombie;
     zombie.rect = { 400, 400, 32, 32 };
@@ -101,13 +102,13 @@ void update() {
 
     // Обновление зомби
     for (Zombie& zombie : zombies) {
-        if (npc.isAlive) {
-            // НПС убегает от зомби
-            int dx = npc.rect.x - zombie.targetRect.x;
-            int dy = npc.rect.y - zombie.targetRect.y;
-            npc.rect.x -= dx / 10;
-            npc.rect.y -= dy / 10;
-        }
+        //if (npc.isAlive) {
+        //    // НПС убегает от зомби
+        //    int dx = npc.rect.x - zombie.targetRect.x;
+        //    int dy = npc.rect.y - zombie.targetRect.y;
+        //    npc.rect.x -= dx / 10;
+        //    npc.rect.y -= dy / 10;
+        //}
 
         if (zombie.isAlive) {
             // Зомби следует за целью (игроком или НПС)
@@ -123,12 +124,12 @@ void update() {
                     player.isAlive = false;
                 }
             }
-            else if (SDL_HasIntersection(&zombie.rect, &npc.rect)) {
-                npc.hp -= 10;
-                if (npc.hp <= 0) {
-                    npc.isAlive = false;
-                }
-            }
+            //else if (SDL_HasIntersection(&zombie.rect, &npc.rect)) {
+            //    npc.hp -= 10;
+            //    if (npc.hp <= 0) {
+            //        npc.isAlive = false;
+            //    }
+            //}
         }
     }
 
@@ -157,15 +158,15 @@ void update() {
                 zombie.targetRect = player.rect;
             }
         }
-        if (npc.isAlive) {
-            int dx = zombie.rect.x - npc.rect.x;
-            int dy = zombie.rect.y - npc.rect.y;
-            int distance = dx * dx + dy * dy;
-            if (distance < minDistance) {
-                minDistance = distance;
-                zombie.targetRect = npc.rect;
-            }
-        }
+        //if (npc.isAlive) {
+        //    int dx = zombie.rect.x - npc.rect.x;
+        //    int dy = zombie.rect.y - npc.rect.y;
+        //    int distance = dx * dx + dy * dy;
+        //    if (distance < minDistance) {
+        //        minDistance = distance;
+        //        zombie.targetRect = npc.rect;
+        //    }
+        //}
     }
 }
 
@@ -177,9 +178,8 @@ void render() {
     // Отрисовка игрока, НПС и зомби
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(renderer, &player.rect);
-
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    SDL_RenderFillRect(renderer, &npc.rect);
+    //SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    //SDL_RenderFillRect(renderer, &npc.rect);
 
     for (Zombie& zombie : zombies) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
@@ -211,11 +211,12 @@ int main(int argv, char** args) {
 
         // Проверка на окончание игры
         if (!player.isAlive) {
-            //running = false;
+            Sleep(1000);
+            running = false;
         }
-        if (!npc.isAlive) {
-            //running = false;
-        }
+        //if (!npc.isAlive) {
+        //    //running = false;
+        //}
         if (zombies.empty()) {
             //running = false;
         }
