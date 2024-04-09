@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\60628\source\repos\GameByAis\include;C:\Users\60628\source\repos\GameByAis;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\60628\source\repos\GameByAis\lib\x64;C:\Users\60628\source\repos\GameByAis\lib;C:\Users\60628\source\repos\GameByAis;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\60628\source\repos\GameByAi\lib\x64;C:\Users\60628\source\repos\GameByAi\lib;C:\Users\60628\source\repos\GameByAi\include;C:\Users\60628\source\repos\GameByAis\lib\x64;C:\Users\60628\source\repos\GameByAis\lib;C:\Users\60628\source\repos\GameByAis;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
